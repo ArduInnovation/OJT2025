@@ -1,0 +1,438 @@
+/* View Record Modal Styling */
+:root {
+  --primary-color: #2e7d32;
+  --primary-light: #60ad5e;
+  --primary-dark: #005005;
+  --secondary-color: #e8f5e9;
+  --text-color: #333333;
+  --text-light: #666666;
+  --border-color: #e0e0e0;
+  --border-focus: #2e7d32;
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --background-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+}
+
+/* View Record Modal */
+#editMemberModal.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-speed) ease,
+    visibility var(--transition-speed) ease;
+}
+
+#editMemberModal.modal.show {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+#editMemberModal .modal-content {
+  background: var(--background-color);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 85%;
+  max-width: 1000px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 0;
+  position: relative;
+  animation: modalAppear 0.4s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal Header */
+#editMemberModal .modal-header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
+  padding: 20px 25px;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#editMemberModal h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+#editMemberModal .close {
+  font-size: 24px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all var(--transition-speed) ease;
+}
+
+#editMemberModal .close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Form Content */
+#editMemberModal form {
+  padding: 25px;
+}
+
+/* Section Styling */
+#editMemberModal .section {
+  margin-bottom: 30px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#editMemberModal .section-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 15px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+#editMemberModal .section-content {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+#editMemberModal .section-content.three-columns {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#editMemberModal .section-content.four-columns {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+#editMemberModal .field {
+  display: flex;
+  flex-direction: column;
+}
+
+#editMemberModal .field.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Labels */
+#editMemberModal label {
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Inputs */
+#editMemberModal input,
+#editMemberModal select,
+#editMemberModal textarea {
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all var(--transition-speed) ease;
+  background-color: white;
+}
+
+#editMemberModal input:focus,
+#editMemberModal select:focus,
+#editMemberModal textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+/* Work Details */
+#editMemberModal .work-entry {
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-speed) ease;
+}
+
+#editMemberModal .work-entry:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+#editMemberModal .work-details-header {
+  background-color: #f5f5f5;
+  padding: 10px 15px;
+  font-weight: 600;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+#editMemberModal .work-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 15px;
+}
+
+/* Add Work Detail Button */
+#editMemberModal #addWorkDetail {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-speed) ease;
+}
+
+#editMemberModal #addWorkDetail:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #004000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#editMemberModal #addWorkDetail:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+#editMemberModal #addWorkDetail::before {
+  content: '+';
+  margin-right: 8px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Children and Beneficiaries */
+#editMemberModal .child-entry,
+#editMemberModal .beneficiary-entry {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-speed) ease;
+}
+
+#editMemberModal .child-entry:hover,
+#editMemberModal .beneficiary-entry:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+#editMemberModal .child-entry-grid,
+#editMemberModal .beneficiary-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+#editMemberModal .beneficiary-entry-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+  #editMemberModal .child-entry-grid,
+  #editMemberModal .beneficiary-entry-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* No data message */
+#editMemberModal .no-data-message {
+  color: var(--text-light);
+  text-align: center;
+  padding: 15px;
+  font-style: italic;
+}
+
+/* Submit Button */
+#editMemberModal button[type='submit'] {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition-speed) ease;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 16px;
+}
+
+#editMemberModal button[type='submit']:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #004000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Checkbox styling */
+#editMemberModal .checkbox-field {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+#editMemberModal .checkbox-field input[type='checkbox'] {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+}
+
+#editMemberModal .checkbox-field label {
+  margin-bottom: 0;
+}
+
+/* Office Input Container */
+.office-input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.office-input-container input {
+  margin-bottom: 8px;
+}
+
+/* Office Names Container and List */
+.office-names-container {
+  margin-top: 10px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.office-names-container h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.office-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.office-list li {
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.office-list li:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.office-list li:last-child {
+  margin-bottom: 0;
+}
+
+.show-offices-btn {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all var(--transition-speed) ease;
+}
+
+.show-offices-btn:hover {
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.close-offices-btn {
+  margin-top: 15px;
+  padding: 8px 15px;
+  background-color: #f5f5f5;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all var(--transition-speed) ease;
+  display: block;
+  width: 100%;
+}
+
+.close-offices-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  #editMemberModal .section-content,
+  #editMemberModal .section-content.three-columns,
+  #editMemberModal .section-content.four-columns,
+  #editMemberModal .work-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #editMemberModal .modal-content {
+    width: 95%;
+    max-height: 90vh;
+  }
+}

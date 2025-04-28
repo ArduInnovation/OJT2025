@@ -1,0 +1,809 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+/* Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px; /* Make scrollbar thinner */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #2e7d32; /* Dark green background */
+  border-radius: 0px; /* No edges */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #1b5e20; /* Darker green for the scrollbar */
+  border-radius: 0px; /* No edges */
+}
+
+/* For Firefox */
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #1b5e20 #2e7d32;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #2e7d32;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  padding-top: 110px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 900; /* Ensure it's below the navbar */
+  overflow-y: auto;
+  max-height: 85%;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to bottom, #2e7d32, #1b5e20);
+}
+
+.sidebar .logo {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: block;
+  padding: 12px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.toggle-icon {
+  font-size: 12px;
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  opacity: 0.7;
+}
+
+#officeList:not(.hidden) + a .toggle-icon,
+#toggleOffices:hover .toggle-icon {
+  opacity: 1;
+}
+
+#officeList:not(.hidden) ~ #toggleOffices .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.sidebar ul li a:hover::after,
+.sidebar ul li a.active::after {
+  width: 100%;
+}
+
+/* nav bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d4c11;
+  color: white;
+  padding: 10px 20px;
+  position: fixed; /* Fix the navbar at the top */
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 998; /* Make sure it's above other elements */
+  height: 60px;
+}
+
+/* Ensure content does not overlap */
+.content1 {
+  flex: 1;
+
+  margin-left: -15%;
+  margin-top: -15%; /* Adjust to be below the fixed navbar */
+  position: absolute;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.site-name {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.staff-name {
+  font-size: 1.4rem;
+  padding-right: 25%;
+}
+
+.burger-menu {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 20px;
+  position: relative;
+  z-index: 1001; /* Higher than dropdown to ensure it's always clickable */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  outline: none;
+  box-shadow: none;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 40px;
+  top: 60px;
+  background: white;
+  color: black;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-width: 150px;
+  transform-origin: top right;
+  transform: scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  pointer-events: none; /* Disable interactions when hidden */
+}
+
+.dropdown-menu.show {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto; /* Enable interactions when visible */
+}
+
+.dropdown-menu p {
+  margin: 5px 0;
+}
+
+.dropdown-menu form {
+  margin-top: 10px;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.dropdown-menu button:hover {
+  background: #c9302c;
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 270px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Add Member Button */
+.add-member-btn {
+  background-color: #1b5e20;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.add-member-btn:hover {
+  background-color: #145a14;
+}
+
+#openModalBtn {
+  margin-right: 5%;
+  margin-left: 5%;
+}
+#DeleteMember {
+  background-color: #d9534f;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  max-width: 150px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#DeleteMember:hover {
+  background-color: #c9302c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#DeleteMember:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for delete checkboxes */
+.delete-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #d9534f;
+}
+
+/* Search Bar */
+.search-container {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Filter Indicator */
+.filter-indicator {
+  display: none;
+  background-color: #e8f5e9;
+  border: 1px solid #2e7d32;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin-top: 10px;
+  width: 100%;
+  font-size: 14px;
+  color: #2e7d32;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.clear-filter {
+  background-color: #2e7d32 !important;
+  color: white !important;
+  padding: 5px 10px !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  width: auto !important;
+  margin-left: 10px;
+  transition: all 0.2s ease;
+}
+
+.clear-filter:hover {
+  background-color: #1b5e20 !important;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #2e7d32;
+  color: white;
+}
+
+.view-btn {
+  background: #1b5e20;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.view-btn:hover {
+  background: #145a14;
+}
+
+/* Form Styling */
+.form-container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 30%;
+  height: auto;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='date'],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Button Styling */
+button:not(.burger-menu) {
+  background-color: #15bf15;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.5s;
+  width: 100%;
+}
+
+button:not(.burger-menu):hover {
+  background-color: darkgreen;
+  border-radius: 20px;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ensure form steps are properly displayed */
+.form-step {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 85%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  position: relative;
+}
+
+/* Close Button */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  color: #333;
+}
+
+.close {
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  background: none;
+  border: none;
+  padding: 5px;
+}
+
+.close:hover {
+  color: #000;
+}
+
+/* Form Sections */
+.modal-section {
+  padding: 15px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border-left: 5px solid #28a745;
+  margin-bottom: 10px;
+}
+
+/* Ensure uniform input fields */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.children-container,
+.beneficiary-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Ensure uniform styling for input fields, including date and number */
+.modal-content input[type='text'],
+.modal-content input[type='password'],
+.modal-content input[type='date'],
+.modal-content input[type='number'],
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #f9f9f9;
+  box-sizing: border-box;
+}
+
+/* Focus effect for all input types */
+.modal-content input[type='text']:focus,
+.modal-content input[type='password']:focus,
+.modal-content input[type='date']:focus,
+.modal-content input[type='number']:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+  outline: none;
+  border-color: #28a745; /* Green highlight */
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* Make sure date inputs look consistent */
+.modal-content input[type='date'] {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Make sure number inputs do not have unwanted arrows (optional) */
+.modal-content input[type='number'] {
+  appearance: textfield;
+}
+
+/* Remove arrows in number inputs for WebKit browsers */
+.modal-content input[type='number']::-webkit-inner-spin-button,
+.modal-content input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Make child, beneficiary, and work details in a single row */
+.children-container,
+.beneficiary-container,
+.workDetailsContainer {
+  display: flex;
+  flex-wrap: nowrap; /* Ensure they don't wrap to a new line */
+  gap: 10px;
+  overflow-x: auto; /* Allow horizontal scrolling if content exceeds the container */
+  align-items: center;
+}
+
+/* Ensure each entry (child, beneficiary, work) stays aligned */
+.child-entry,
+.beneficiary-entry,
+.work-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/*css for offices side bar*/
+.hidden {
+  display: none;
+}
+
+#officeList {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 5px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+#officeList:not(.hidden) {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.OfficeListButton {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #2e7d32;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 0;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  margin-bottom: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.OfficeListButton:hover {
+  background-color: #1b5e20;
+  color: white;
+  padding-left: 15px;
+}
+
+.OfficeListButton.active {
+  background-color: #1b5e20;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding-left: 15px;
+}
+
+.OfficeListButton::before {
+  content: '•';
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.OfficeListButton.active::before {
+  content: '✓';
+  opacity: 1;
+}
+
+/* Action History Button */
+.action-history-button-container {
+  position: fixed;
+  right: 20px;
+  bottom: 30px;
+  z-index: 998;
+}
+
+.toggle-history-btn {
+  background-color: #2e7d32;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.toggle-history-btn:hover {
+  background-color: #1b5e20;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.toggle-history-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Action History Panel */
+#actionhistory {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  padding: 20px;
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease-out;
+}
+
+#actionhistory h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 20px;
+  display: inline-block;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+#actionhistory ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#actionhistory li {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+  transition: background-color 0.2s ease;
+}
+
+#actionhistory li:hover {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.close-history {
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-history:hover {
+  color: #d32f2f;
+  background-color: rgba(211, 47, 47, 0.1);
+}
+
+/* Animation for panel appearance */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hidden class for toggling visibility */
+.hidden {
+  display: none !important;
+}
+
+#actionhistory li:last-child {
+  border-bottom: none;
+}

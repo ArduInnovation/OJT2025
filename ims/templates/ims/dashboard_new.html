@@ -1,0 +1,382 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BECCO Members</title>
+    <link rel="stylesheet" href="{% static 'ims/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'ims/multistep-form.css' %}">
+    <link rel="stylesheet" href="{% static 'ims/hamburger-menu.css' %}">
+    <link rel="stylesheet" href="{% static 'ims/work-details.css' %}">
+    <link rel="stylesheet" href="{% static 'ims/view-record.css' %}">
+    <script src="{% static 'ims/date-validation.js' %}" defer></script>
+    <script src="{% static 'ims/multistep-form.js' %}" defer></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-left">
+            {% load static %}
+            <img src="{% static 'ims/BECCO-Logo.png' %}" alt="Logo" class="logo">
+            <span class="site-name">BECCO</span>
+        </div>
+
+        <div class="navbar-right">
+            <span class="staff-name">Welcome, {{ request.session.staff_name }}!</span> <!-- Current Staff Name -->
+            <button type="button" class="burger-menu">☰</button>
+        </div>
+
+                <!-- Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-header">
+                <div class="user-avatar">{{ request.session.staff_name.0 }}</div>
+                <h3>{{ request.session.staff_name }}</h3>
+                <p>ID: {{ request.session.staff_emp_id }}</p>
+                <div class="user-role">Administrator</div>
+            </div>
+
+            <!-- Menu items removed as requested -->
+
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit"><i class="fa fa-sign-out">🚪</i> Logout</button>
+            </form>
+        </div>
+
+    </header>
+
+
+
+
+
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">BECCO</div>
+
+                    <ul>
+                        <li><a href="{% url 'dashboard' %}" class="active">BECCO Members</a></li>
+                        <li>
+                            <a href="#" id="toggleOffices">Offices <span class="toggle-icon">▼</span></a>
+                            <ul id="officeList" class="hidden">
+                                <li><button class="OfficeListButton">Office of the Governor (GO)</button></li>
+                                <li><button class="OfficeListButton">Office of the Governor - Personal Staff</button></li>
+                                <li><button class="OfficeListButton">Office of the Vice Governor (VGO)</button></li>
+                                <li><button class="OfficeListButton">Office of the Vice Governor - Personal Staff</button></li>
+                                <li><button class="OfficeListButton">Office of the Secretary to the Sangguniang Panlalawigan (OSSP)</button></li>
+                                <li><button class="OfficeListButton">Bulacan Environment and Natural Resources Office (BENRO)</button></li>
+                                <li><button class="OfficeListButton">Bulacan Polytechnic College (BPC)</button></li>
+                                <li><button class="OfficeListButton">Provincial Accounting Office</button></li>
+                                <li><button class="OfficeListButton">Provincial Administrator's Office (PA's Office)</button></li>
+                                <li><button class="OfficeListButton">Provincial Agriculture Office (PAO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Assessor's Office</button></li>
+                                <li><button class="OfficeListButton">Provincial Budget Office (PBO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Civil Security and Jail Management Office (PCSJMO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Cooperative and Enterprise Development Office (PCEDO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Disaster Risk Reduction and Management Office (PDRRMO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Engineer's Office (PEO)</button></li>
+                                <li><button class="OfficeListButton">Provincial General Services Office (PGSO)</button></li>
+                                <li><button class="OfficeListButton">Provincial History, Arts, Culture, and Tourism Office (PHACTO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Human Resource Management Office (PHRMO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Information Technology Office (PITO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Legal Office (PLO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Planning and Development Office (PPDO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Public Affairs Office (PPAO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Public Employment Service Office (PPESO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Public Health Office (PPHO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Social Welfare and Development Office (PSWDO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Treasurer's Office (PTO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Veterinary Office (PVO)</button></li>
+                                <li><button class="OfficeListButton">Provincial Youth and Sports Development Office (PYSDO)</button></li>
+                               
+                            </ul>
+                            </ul>
+                        </li>
+                    </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content1">
+            <header>
+                <h2>BECCO Members</h2>
+                <button id="openModalBtn">Add Member</button>
+            </header>
+
+            <!-- Include the multi-step form -->
+            {% include 'ims/multistep_form.html' %}
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="memberSearch" placeholder="Search for member name, office, or position">
+                <button id="DeleteMember">Delete Member</button>
+            </div>
+
+
+            <!-- Members List -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>PGB ID No.</th>
+                        <th>Name of Office</th>
+                        <th>Position</th>
+                        <th>Action</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                        <td>{{ member.first_name }}</td>
+                        <td>{{ member.employment_id }}</td>
+                        <td>
+                            {% for work in member.work_details.all %}
+                                {{ work.office_name }}<br>
+                            {% empty %}
+                                N/A
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for work in member.work_details.all %}
+                                {{ work.position }}<br>
+                            {% empty %}
+                                N/A
+                            {% endfor %}
+                        </td>
+
+                        <td><button class="view-btn">View Record</button>
+                        </td>
+                        <td>
+                                <input class="delete-checkbox" type="checkbox" value="{{ member.employment_id }}" />
+                            </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No members found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Action History Button -->
+            <div class="action-history-button-container">
+                <button id="toggleHistoryBtn" class="toggle-history-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="history-icon" viewBox="0 0 16 16" style="margin-right: 8px;">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                    </svg>
+                    Show Action History
+                </button>
+            </div>
+
+            <!-- Action History Panel (hidden by default) -->
+            <div id="actionhistory" class="hidden">
+                <h2>Action History</h2>
+                <span class="close-history">&times;</span>
+                <ul>
+                  {% for history in history_list %}
+                    <li>{{ history.date }} - {{ history.staff_name }} {{ history.action }}</li>
+                  {% endfor %}
+                </ul>
+            </div>
+
+             <!-- view and edit Member Modal -->
+        <div id="editMemberModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Edit Member</h3>
+                <form id="editMemberForm" action="" method="post">
+                    {% csrf_token %}
+                    <table>
+                        <tr><th colspan="2">Account Details</th></tr>
+                        <tr>
+                            <td><input type="hidden" id="username" name="username" placeholder="Username" required></td>
+                            <td><input type="hidden" id="password" name="password" placeholder="Password" required></td>
+                        </tr>
+
+                        <tr><th colspan="2">Personal Information</th></tr>
+                        <tr>
+                            <input type="hidden" name="employment_id" id="employment_id" value="{{ member.employment_id }}">
+                            <td><input type="text" name="first_name" id="first_name" placeholder="First Name" ></td>
+                            <td><input type="text" name="last_name" id="last_name" placeholder="Last Name" ></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="middle_name" id="middle_name" placeholder="Middle Name"></td>
+                            <td><input type="text" name="nickname" id="nickname" placeholder="Nickname"></td>
+                        </tr>
+                        <tr>
+                            <td><br><input type="date" name="date_of_birth" id="date_of_birth" title="Date format: YYYY-MM-DD"></td>
+                            <td><input type="number" name="age" id="age" placeholder="Age"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select id="civil_status" name="civil_status">
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="widowed">Widowed</option>
+                                    <option value="divorced">Divorced</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="sex" name="sex">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="text" name="spouse_name" id="spouse_name" placeholder="Spouse Name"></td>
+                        </tr>
+
+                        <tr><th colspan="2">Contact Information</th></tr>
+                        <tr>
+                            <td><input type="text" name="phone_number" id="phone_number" placeholder="Phone Number"></td>
+                            <td><input type="email" name="email_address" id="email_address" placeholder="Email Address"></td>
+                        </tr>
+
+                        <tr><th colspan="2">Address</th></tr>
+                        <tr>
+                            <td><input type="text" name="address_province" id="address_province" placeholder="Province"></td>
+                            <td><input type="text" name="address_city" id="address_city" placeholder="City"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input name="address_street" type="text" id="address_street" placeholder="Street"></td>
+                        </tr>
+
+                        <tr><th colspan="2">Family Information</th></tr>
+                        <tr>
+                            <td><input type="text" name="father_name" id="father_name" placeholder="Father's Name"></td>
+                            <td><input type="text" name="mother_name" id="mother_name" placeholder="Mother's Name"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="checkbox" name="has_children" id="has_children"> <label for="has_children">Has Children</label></td>
+                        </tr>
+
+                        <tr><th colspan="2">Children Details</th></tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" id="addChild">Add Child</button><br><br>
+                                <div id="childrenContainer" style="display: none;">
+
+                                    <div class="child-entry">
+                                        <input type="text" name="child_name" class="child_name" placeholder="Child's Name">
+                                        <input type="date" name="child_birth_date" class="child_birth_date" title="Date format: YYYY-MM-DD">
+                                    <br><br></div>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr><th colspan="2">Beneficiary Details</th></tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" id="addBeneficiary">Add Beneficiary</button><br><br>
+                                <div id="beneficiaryContainer">
+                                    <div class="beneficiary-entry">
+                                        <label>Beneficiary Name:</label>
+                                        <input type="text" name="beneficiary_full_name[]" class="beneficiary_full_name" placeholder="Beneficiary Name" required>
+
+                                        <label>Beneficiary Age:</label>
+                                        <input type="number" name="beneficiary_age[]" class="beneficiary_age" placeholder="Beneficiary Age" required>
+
+                                        <label>Relationship:</label>
+                                        <select name="beneficiary_relationship[]" class="beneficiary_relationship" required>
+                                            <option value="father">Father</option>
+                                            <option value="mother">Mother</option>
+                                            <option value="child">Child</option>
+                                            <option value="siblings">Siblings</option>
+                                            <option value="other_relative">Other Relative</option>
+                                        </select>
+                                        <br><br>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr><th colspan="2">Education Background</th></tr>
+                        <tr>
+                            <td><input type="text" name="school_name" id="school_name" placeholder="School Name"></td>
+                            <td><input type="text" name="degree_units" id="degree_units" placeholder="Degree/Units"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Start Date:</label><input type="date" name="edu_start_date" id="edu_start_date" title="Date format: YYYY-MM-DD"></td>
+                            <td><label>End Date:</label><input type="date" name="edu_end_date" id="edu_end_date" title="Date format: YYYY-MM-DD"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="text" name="honors_received" id="honors_received" placeholder="Honors Received"></td>
+                        </tr>
+
+                        <tr><th colspan="2">Work Details</th></tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" id="addWorkDetail">Add Work Detail</button><br><br>
+                                <div id="workDetailsContainer">
+                                    <div class="work-entry">
+                                        <select id="office_name" name="office_name" class="office_name">
+                                            <option value="">Loading Offices...</option>
+                                        </select>
+
+                                        <input type="number" name="service_record" class="service_record" placeholder="Service Record"><br><br>
+                                        <input type="text" name="pgb_id_no" class="pgb_id_no" placeholder="PGB ID No.">
+                                        <input type="number" name="tin_no" class="tin_no" placeholder="TIN No."><br><br>
+                                        <label>Start Date:</label>
+                                        <input type="date" name="start_date" class="start_date" title="Date format: YYYY-MM-DD">
+                                        <label>End Date:</label>
+                                        <input type="date" name="end_date" class="end_date" title="Date format: YYYY-MM-DD">
+                                        <input type="text" name="position" class="position" placeholder="Position">
+                                        <input type="number" name="salary" class="salary" placeholder="Salary"><br><br>
+                                        <select class="appointment_status" name="appointment_status">
+                                            <option value="permanent">Permanent</option>
+                                            <option value="contractual">Contractual</option>
+                                            <option value="casual">Casual</option>
+                                            <option value="job_order">Job Order</option>
+                                        </select><br><br><br>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </table>
+
+                        <table>
+                        <tr>
+                            <th colspan="2">Approved By</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span id="staff_approved_display" name="staff_approved_by"></span> <!-- Displays Staff Name -->
+                                <select id="staff_approved_by" name="staff_approved_by" style="display: none;">
+                                    <!-- This dropdown will be used for form submission -->
+                                </select>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td><input type="number" name="res_certificate_no" id="res_certificate_no" placeholder="Residence Certificate No"></td>
+                            <td><br><input type="date" name="issued_date" id="issued_date" placeholder="Issued Date" title="Date format: YYYY-MM-DD"></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2"><button type="submit">Update Member</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            </div>
+
+    </div>
+
+        </main>
+</div>
+
+    {% load static %}
+    <script src="{% static 'ims/addmember.js' %}"></script>
+    <script src="{% static 'ims/editrecord.js' %}"></script>
+    <script src="{% static 'ims/search.js' %}"></script>
+    <script src="{% static 'ims/history.js' %}"></script>
+    <script src="{% static 'ims/delete.js' %}"></script>
+    <script src="{% static 'ims/hamburger-menu.js' %}"></script>
+    <script src="{% static 'ims/multistep-form.js' %}"></script>
+    <script src="{% static 'ims/formchange.js' %}"></script>
+
+</body>
+</html>

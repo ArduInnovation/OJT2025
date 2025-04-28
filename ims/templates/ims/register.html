@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'ims/style.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register</h2>
+        <br>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %} 
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <br><br><br>
+            <button type="submit">Register</button>
+            <br><br>
+            <a href="{% url 'login' %}"><button type="button">Go to Login</button></a>
+
+        </form>
+    </div>
+</body>
+</html>

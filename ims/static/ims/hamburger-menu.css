@@ -1,0 +1,572 @@
+/* Hamburger Menu Styling */
+.burger-menu {
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin-right: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  color: white;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1001; /* Higher than dropdown to ensure it's always clickable */
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Hamburger menu lines */
+.burger-line {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation for hamburger menu when active */
+.burger-menu.active .burger-line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.burger-menu:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.burger-menu:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Add ripple effect */
+.burger-menu::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s ease-out;
+}
+
+.burger-menu:active::after {
+  transform: scale(2);
+  opacity: 0;
+  transition: 0s;
+}
+
+/* Dropdown Menu */
+#dropdownMenu {
+  position: absolute;
+  right: 20px;
+  top: 70px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+  padding: 0;
+  overflow: hidden;
+  transform-origin: top right;
+  transform: scale(0.95) translateY(-20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1000;
+  pointer-events: none; /* Disable interactions when hidden */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#dropdownMenu.show {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto; /* Enable interactions when visible */
+}
+
+/* Dropdown Menu Header */
+.dropdown-header {
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  color: white;
+  padding: 30px 20px;
+  border-radius: 16px 16px 0 0;
+  text-align: center;
+  margin-bottom: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add subtle pattern overlay */
+.dropdown-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 50%
+  );
+  opacity: 0.6;
+  animation: rotate 25s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dropdown-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+}
+
+.dropdown-header .user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-size: 32px;
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.dropdown-header .user-avatar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 50%
+  );
+  border-radius: 50%;
+}
+
+#dropdownMenu.show .user-avatar {
+  animation: avatarBounce 0.5s ease-out 0.1s both;
+}
+
+@keyframes avatarBounce {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.dropdown-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.dropdown-header p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+/* User role badge */
+.user-role {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#dropdownMenu.show .user-role {
+  animation: badgeAppear 0.5s ease forwards 0.4s;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+@keyframes badgeAppear {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#dropdownMenu.show .dropdown-header h3 {
+  animation: textSlideUp 0.4s ease-out 0.2s both;
+}
+
+#dropdownMenu.show .dropdown-header p {
+  animation: textSlideUp 0.4s ease-out 0.3s both;
+}
+
+@keyframes textSlideUp {
+  0% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Menu Items */
+.dropdown-menu-items {
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.menu-item {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  color: #333;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.menu-item i {
+  margin-right: 12px;
+  font-size: 18px;
+  color: #2e7d32;
+  width: 24px;
+  text-align: center;
+}
+
+.menu-item-text {
+  font-weight: 500;
+}
+
+.menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.05),
+    transparent
+  );
+}
+
+.menu-item:last-child::after {
+  display: none;
+}
+
+/* Status indicator */
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #4caf50;
+  margin-right: 8px;
+  position: relative;
+}
+
+.status-indicator::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background-color: rgba(76, 175, 80, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Logout Button */
+.dropdown-menu form {
+  padding: 20px;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+#dropdownMenu.show form {
+  animation: formSlideUp 0.4s ease-out 0.4s both;
+}
+
+@keyframes formSlideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.dropdown-menu button {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-menu button i {
+  margin-right: 10px;
+}
+
+.dropdown-menu button:hover {
+  background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.dropdown-menu button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Add ripple effect to button */
+.dropdown-menu button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s ease-out;
+  border-radius: 8px;
+}
+
+.dropdown-menu button:active::after {
+  transform: scale(2);
+  opacity: 0;
+  transition: 0s;
+}
+
+/* Arrow pointing to the hamburger menu */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.04);
+  z-index: 1;
+}
+
+.dropdown-menu.show::before {
+  animation: arrowFadeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes arrowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) rotate(45deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(45deg);
+  }
+}
+
+/* For the dropdown header, we want a different arrow color */
+.dropdown-menu::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  transform: rotate(45deg);
+  z-index: -1;
+  opacity: 0;
+}
+
+.dropdown-menu.show::after {
+  animation: greenArrowFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes greenArrowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) rotate(45deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(45deg);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  #dropdownMenu {
+    background: rgba(30, 30, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .dropdown-menu::before {
+    background: rgba(30, 30, 30, 0.95);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .menu-item {
+    color: #e0e0e0;
+  }
+
+  .menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .menu-item::after {
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    right: 10px;
+    width: calc(100% - 20px);
+    max-width: 320px;
+  }
+
+  .burger-menu {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dropdown-header {
+    padding: 25px 15px;
+  }
+
+  .dropdown-header .user-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .menu-item {
+    padding: 10px 15px;
+  }
+}

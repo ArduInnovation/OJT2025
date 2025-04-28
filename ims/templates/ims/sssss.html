@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'ims/style.css' %}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Welcome, {{ user.username }}</h2>
+
+    <h3>Personal Details</h3>
+    <p><strong>Last Name:</strong> {{ user.last_name|default:"N/A" }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name|default:"N/A" }}</p>
+    <p><strong>Middle Name:</strong> {{ user.middle_name|default:"N/A" }}</p>
+    <p><strong>Nickname:</strong> {{ user.nickname|default:"N/A" }}</p>
+
+    <h3>Address</h3>
+    <p><strong>Province:</strong> {{ user.address_province|default:"N/A" }}</p>
+    <p><strong>City/Municipality:</strong> {{ user.address_city|default:"N/A" }}</p>
+    <p><strong>House No./Street/Barangay:</strong> {{ user.address_street|default:"N/A" }}</p>
+
+    <h3>Contact Information</h3>
+    <p><strong>Phone Number:</strong> {{ user.phone_number|default:"N/A" }}</p>
+    <p><strong>Email:</strong> {{ user.email_address|default:"N/A" }}</p>
+
+    <h3>Birth Details</h3>
+    <p><strong>Date of Birth:</strong> {{ user.date_of_birth|default:"N/A" }}</p>
+    <p><strong>Age:</strong> {{ user.age|default:"N/A" }}</p>
+
+    <h3>Other Details</h3>
+    <p><strong>Civil Status:</strong> {{ user.civil_status|default:"N/A" }}</p>
+    {% if user.civil_status == "married" %}
+        <p><strong>Spouse Name:</strong> {{ user.spouse_name|default:"N/A" }}</p>
+    {% endif %}
+    <p><strong>Sex:</strong> {{ user.sex|default:"N/A" }}</p>
+    <p><strong>Father's Name:</strong> {{ user.father_name|default:"N/A" }}</p>
+    <p><strong>Mother's Name:</strong> {{ user.mother_name|default:"N/A" }}</p>
+
+    {% if user.has_children %}
+        <h3>Children:</h3>
+        <ul>
+            {% for child in user.children.all %}
+                <li><strong>Name:</strong> {{ child.name }}, <strong>Birth Date:</strong> {{ child.birth_date }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{% url 'logout' %}"><button>Logout</button></a>
+</body>
+</html>

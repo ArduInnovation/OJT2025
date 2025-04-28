@@ -1,0 +1,544 @@
+<!-- Add Member Modal -->
+<div id="addMemberModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>Add Member</h3>
+
+    <!-- Progress bar -->
+    <div class="progress-text" id="progressText">Step 1 of 7</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form
+      id="addMemberForm"
+      action="{% url 'register' %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+
+      <!-- Step 1: Account Details -->
+      <div class="form-step" id="step1" style="display: none">
+        <h4 class="step-title">Account Details</h4>
+        <table>
+          <tr>
+            <td>
+              <label for="username" class="required-field">Username</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Username"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="password" class="required-field">Password</label>
+            </td>
+            <td>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Step 2: Personal Information -->
+      <div class="form-step" id="step2">
+        <h4 class="step-title">Personal Information</h4>
+        <table>
+          <tr>
+            <td><label for="first_name">First Name</label></td>
+            <td>
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                placeholder="First Name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="last_name">Last Name</label></td>
+            <td>
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                placeholder="Last Name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="middle_name">Middle Name</label></td>
+            <td>
+              <input
+                type="text"
+                name="middle_name"
+                id="middle_name"
+                placeholder="Middle Name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="nickname">Nickname</label></td>
+            <td>
+              <input
+                type="text"
+                name="nickname"
+                id="nickname"
+                placeholder="Nickname"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="date_of_birth">Date of Birth</label></td>
+            <td>
+              <input
+                type="date"
+                name="date_of_birth"
+                id="date_of_birth"
+                title="Date format: YYYY-MM-DD"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="age">Age</label></td>
+            <td>
+              <input type="number" name="age" id="age" placeholder="Age" />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="civil_status">Civil Status</label></td>
+            <td>
+              <select id="civil_status" name="civil_status">
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="widowed">Widowed</option>
+                <option value="divorced">Divorced</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="sex">Sex</label></td>
+            <td>
+              <select id="sex" name="sex">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </td>
+          </tr>
+          <tr id="spouse_name" style="display: none">
+            <td><label for="spouse_name">Spouse Name</label></td>
+            <td>
+              <input
+                type="text"
+                name="spouse_name"
+                id="spouse_name"
+                placeholder="Spouse Name"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Step 3: Contact & Address -->
+      <div class="form-step" id="step3">
+        <h4 class="step-title">Contact & Address Information</h4>
+        <table>
+          <tr>
+            <td><label for="phone_number">Phone Number</label></td>
+            <td>
+              <input
+                type="text"
+                name="phone_number"
+                id="phone_number"
+                placeholder="Phone Number"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="email_address">Email Address</label></td>
+            <td>
+              <input
+                type="email"
+                name="email_address"
+                id="email_address"
+                placeholder="Email Address"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="address_province">Province</label></td>
+            <td>
+              <input
+                type="text"
+                name="address_province"
+                id="address_province"
+                placeholder="Province"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="address_city">City</label></td>
+            <td>
+              <input
+                type="text"
+                name="address_city"
+                id="address_city"
+                placeholder="City"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="address_street">Street</label></td>
+            <td>
+              <input
+                name="address_street"
+                type="text"
+                id="address_street"
+                placeholder="Street"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Step 4: Family Information -->
+      <div class="form-step" id="step4">
+        <h4 class="step-title">Family Information</h4>
+        <table>
+          <tr>
+            <td><label for="father_name">Father's Name</label></td>
+            <td>
+              <input
+                type="text"
+                name="father_name"
+                id="father_name"
+                placeholder="Father's Name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="mother_name">Mother's Name</label></td>
+            <td>
+              <input
+                type="text"
+                name="mother_name"
+                id="mother_name"
+                placeholder="Mother's Name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="checkbox" name="has_children" id="has_children" />
+              <label for="has_children">Has Children</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div id="childrenContainer" style="display: none">
+                <button type="button" id="addChild">Add Child</button
+                ><br /><br />
+                <div class="child-entry">
+                  <label>Child's Name</label>
+                  <input
+                    type="text"
+                    name="child_name"
+                    class="child_name"
+                    placeholder="Child's Name"
+                    value="NA"
+                  />
+                  <label>Child's Birthdate</label>
+                  <input
+                    type="date"
+                    name="child_birth_date"
+                    class="child_birth_date"
+                    title="Date format: YYYY-MM-DD"
+                    value="1111-11-11"
+                  />
+                  <br /><br />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h5>Beneficiary Details</h5>
+              <button type="button" id="addBeneficiary">Add Beneficiary</button
+              ><br /><br />
+              <div id="beneficiaryContainer">
+                <div class="beneficiary-entry">
+                  <label>Beneficiary Name:</label>
+                  <input
+                    type="text"
+                    name="beneficiary_full_name[]"
+                    class="beneficiary_full_name"
+                    placeholder="Beneficiary Name"
+                    required
+                  />
+
+                  <label>Beneficiary Age:</label>
+                  <input
+                    type="number"
+                    name="beneficiary_age[]"
+                    class="beneficiary_age"
+                    placeholder="Beneficiary Age"
+                    required
+                  />
+
+                  <label>Relationship:</label>
+                  <select
+                    name="beneficiary_relationship[]"
+                    class="beneficiary_relationship"
+                    required
+                  >
+                    <option value="father">Father</option>
+                    <option value="mother">Mother</option>
+                    <option value="child">Child</option>
+                    <option value="siblings">Siblings</option>
+                    <option value="other_relative">Other Relative</option>
+                  </select>
+                  <br /><br />
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Step 5: Education Background -->
+      <div class="form-step" id="step5">
+        <h4 class="step-title">Education Background</h4>
+        <table>
+          <tr>
+            <td><label for="school_name">School Name</label></td>
+            <td>
+              <input
+                type="text"
+                name="school_name"
+                id="school_name"
+                placeholder="School Name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="degree_units">Degree/Units</label></td>
+            <td>
+              <input
+                type="text"
+                name="degree_units"
+                id="degree_units"
+                placeholder="Degree/Units"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="start_date">Start Date</label></td>
+            <td>
+              <input
+                type="date"
+                name="edu_start_date"
+                id="edu_start_date"
+                title="Date format: YYYY-MM-DD"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="end_date">End Date</label></td>
+            <td>
+              <input
+                type="date"
+                name="edu_end_date"
+                id="edu_end_date"
+                title="Date format: YYYY-MM-DD"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="honors_received">Honors Received</label></td>
+            <td>
+              <input
+                type="text"
+                name="honors_received"
+                id="honors_received"
+                placeholder="Honors Received"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Step 6: Work Details -->
+      <div class="form-step" id="step6">
+        <h4 class="step-title">Work Details</h4>
+
+        <button type="button" id="addWorkDetail" class="add-work-btn">
+          Add Work Detail
+        </button>
+
+        <div id="workDetailsContainer">
+          <div class="work-entry work-entry-container">
+            <div class="work-details-header">Work Details</div>
+            <div class="work-details-grid">
+              <!-- First row -->
+              <div class="field">
+                <label for="office_name">Office Name</label>
+                <select id="office_name" name="office_name" class="office_name">
+                  <option value="">Loading Offices...</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="service_record">Service Record</label>
+                <input
+                  type="number"
+                  name="service_record"
+                  class="service_record"
+                  placeholder="Service Record"
+                />
+              </div>
+
+              <div class="field">
+                <label for="pgb_id_no">PGB ID No.</label>
+                <input
+                  type="text"
+                  name="pgb_id_no"
+                  class="pgb_id_no"
+                  placeholder="PGB ID No."
+                />
+              </div>
+
+              <div class="field">
+                <label for="tin_no">TIN No.</label>
+                <input
+                  type="number"
+                  name="tin_no"
+                  class="tin_no"
+                  placeholder="TIN No."
+                />
+              </div>
+
+              <!-- Second row -->
+              <div class="field date-field">
+                <label for="start_date">Start Date</label>
+                <input
+                  type="date"
+                  name="start_date"
+                  class="start_date"
+                  title="Date format: YYYY-MM-DD"
+                />
+              </div>
+
+              <div class="field date-field">
+                <label for="end_date">End Date</label>
+                <input
+                  type="date"
+                  name="end_date"
+                  class="end_date"
+                  title="Date format: YYYY-MM-DD"
+                />
+              </div>
+
+              <div class="field">
+                <label for="position">Position</label>
+                <input
+                  type="text"
+                  name="position"
+                  class="position"
+                  placeholder="Position"
+                />
+              </div>
+
+              <div class="field">
+                <label for="salary">Salary</label>
+                <input
+                  type="number"
+                  name="salary"
+                  class="salary"
+                  placeholder="Salary"
+                />
+              </div>
+
+              <!-- Third row -->
+              <div class="field double">
+                <label for="appointment_status">Appointment Status</label>
+                <select class="appointment_status" name="appointment_status">
+                  <option value="permanent">Permanent</option>
+                  <option value="contractual">Contractual</option>
+                  <option value="casual">Casual</option>
+                  <option value="job_order">Job Order</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7: Approval Information -->
+      <div class="form-step" id="step7">
+        <h4 class="step-title">Approval Information</h4>
+        <table>
+          <tr>
+            <td><label for="staff_approved_by">Approved By</label></td>
+            <td>
+              <select id="staff_approved_by" name="staff_approved_by">
+                <option value="">Loading staff...</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="res_certificate_no">Residence Certificate No</label>
+            </td>
+            <td>
+              <input
+                type="number"
+                name="res_certificate_no"
+                id="res_certificate_no"
+                placeholder="Residence Certificate No"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="issued_date">Issued Date</label></td>
+            <td>
+              <input
+                type="date"
+                name="issued_date"
+                id="issued_date"
+                placeholder="Issued Date"
+                title="Date format: YYYY-MM-DD"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Form Navigation -->
+      <div class="form-navigation">
+        <button type="button" id="prevBtn">Previous</button>
+        <button type="button" id="nextBtn">Next</button>
+        <button type="submit" id="submitBtn">Save Member</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if error %}
+  <script>
+    alert('{{ error }}');
+    window.history.back();
+  </script>
+{% endif %}
