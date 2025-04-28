@@ -1,4 +1,4 @@
-eto edited -- > naka postgres nadin https://drive.google.com/file/d/1xfzNrjvak4uPxq7x2rXnEY0D-dggzeFS/view?usp=sharing
+eto drive link pag hindi ma clone/commit -- > naka postgres nadin https://drive.google.com/file/d/1xfzNrjvak4uPxq7x2rXnEY0D-dggzeFS/view?usp=sharing
 
 step 0 install this,
 
