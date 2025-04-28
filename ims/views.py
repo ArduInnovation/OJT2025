@@ -20,6 +20,10 @@ from django.shortcuts import get_object_or_404
 
 from django.contrib import messages
 
+from datetime import datetime
+
+now = datetime.now()
+formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
 
 
 def get_staff_list(request):
@@ -225,7 +229,7 @@ def update_member(request, employment_id):
             member.edu_end_date = request.POST.get("edu_end_date")
             member.honors_received = request.POST.get("honors_received")
             member.save()
-            HistoryList.objects.create(staff_name=request.session["staff_name"], action=f"updated member {member.first_name}")
+            HistoryList.objects.create(date=now, staff_name=request.session["staff_name"], action=f"updated member {member.first_name}")
 
             # Update Staff Approval
             staff_approved_by_id = request.POST.get("staff_approved_by")
@@ -315,7 +319,7 @@ def register(request):
                 mother_name=mother_name,
                 has_children=has_children
             )
-            HistoryList.objects.create(staff_name=request.session["staff_name"], action=f"added an employee named {member.first_name}")
+            HistoryList.objects.create(date=now, staff_name=request.session["staff_name"], action=f"added an employee named {member.first_name}")
             # Save member object
             member.save()
 
@@ -496,7 +500,7 @@ def login(request):
                 request.session["staff_name"] = staff.staff_name  # Store staff name for display
 
                 auth_login(request, staff)  # Log the user in
-                HistoryList.objects.create(staff_name=request.session["staff_name"], action="has been logged in")
+                HistoryList.objects.create(date=now, staff_name=request.session["staff_name"], action="has been logged in")
                 return redirect("dashboard")  # Redirect to dashboard
 
             else:
@@ -538,7 +542,7 @@ def dashboard(request):
 @csrf_protect
 def logout(request):
     if request.method == "POST":
-        HistoryList.objects.create(staff_name=request.session["staff_name"], action=f"has logged out")
+        HistoryList.objects.create(date=now,staff_name=request.session["staff_name"], action=f"has logged out")
         request.session.flush()
         return redirect("login")
     return redirect("home")  # Redirect to home if accessed via GET
@@ -577,6 +581,7 @@ def delete_member(request):
 
                     # Create history record
                     HistoryList.objects.create(
+                        date=now,
                         staff_name=request.session["staff_name"],
                         action=f"deleted member {member_name}"
                     )

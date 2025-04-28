@@ -106,48 +106,57 @@
             <!-- Include the multi-step form -->
             {% include 'ims/multistep_form.html' %}
 
-            <!-- Search Bar -->
+            <!-- Search Bar <button id="DeleteMember">Delete Member</button>-->
             <div class="search-container">
                 <input type="text" id="memberSearch" placeholder="Search for member name, office, or position">
-                <button id="DeleteMember">Delete Member</button>
+                
             </div>
 
 
             <!-- Members List -->
+            
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Names</th>
                         <th>PGB ID No.</th>
                         <th>Name of Office</th>
                         <th>Position</th>
+                        <th>Status</th>
                         <th>Action</th>
-                        <th>Delete</th>
+                        <th id="delete-header"><button id="DeleteMember">Delete</button></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for member in members %}
                     <tr>
-                        <td>{{ member.first_name }}</td>
-                        <td>{{ member.employment_id }}</td>
-                        <td>
+                        <td class="tdClass">{{ member.first_name }}</td>
+                        <td class="tdClass">{{ member.employment_id }}</td>
+                        <td class="tdClass">
                             {% for work in member.work_details.all %}
                                 {{ work.office_name }}<br>
                             {% empty %}
                                 N/A
                             {% endfor %}
                         </td>
-                        <td>
+                        <td class="tdClass">
                             {% for work in member.work_details.all %}
                                 {{ work.position }}<br>
                             {% empty %}
                                 N/A
                             {% endfor %}
                         </td>
-
-                        <td><button class="view-btn">View Record</button>
+                        <td class="tdClass">
+                            {% for work in member.work_details.all %}
+                                {{ work.appointment_status }}<br>
+                            {% empty %}
+                                N/A
+                            {% endfor %}
                         </td>
-                        <td>
+
+                        <td class="tdClass"><button class="view-btn">View Record</button>
+                        </td>
+                        <td class="tdClass">
                                 <input class="delete-checkbox" type="checkbox" value="{{ member.employment_id }}" />
                             </td>
                     </tr>
@@ -196,15 +205,15 @@
                         <tr><th colspan="2">Personal Information</th></tr>
                         <tr>
                             <input type="hidden" name="employment_id" id="employment_id" value="{{ member.employment_id }}">
-                            <td><input type="text" name="first_name" id="first_name" placeholder="First Name" ></td>
-                            <td><input type="text" name="last_name" id="last_name" placeholder="Last Name" ></td>
+                            <td><input type="text" name="first_name" id="first_name" placeholder="First Name" readonly></td>
+                            <td><input type="text" name="last_name" id="last_name" placeholder="Last Name" readonly></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="middle_name" id="middle_name" placeholder="Middle Name"></td>
+                            <td><input type="text" name="middle_name" id="middle_name" placeholder="Middle Name" readonly></td>
                             <td><input type="text" name="nickname" id="nickname" placeholder="Nickname"></td>
                         </tr>
                         <tr>
-                            <td><br><input type="date" name="date_of_birth" id="date_of_birth" title="Date format: YYYY-MM-DD"></td>
+                            <td><br><input type="date" name="date_of_birth" id="date_of_birth" title="Date format: YYYY-MM-DD" readonly></td>
                             <td><input type="number" name="age" id="age" placeholder="Age"></td>
                         </tr>
                         <tr>
@@ -298,8 +307,8 @@
                             <td><input type="text" name="degree_units" id="degree_units" placeholder="Degree/Units"></td>
                         </tr>
                         <tr>
-                            <td><label>Start Date:</label><input type="date" name="edu_start_date" id="edu_start_date" title="Date format: YYYY-MM-DD"></td>
-                            <td><label>End Date:</label><input type="date" name="edu_end_date" id="edu_end_date" title="Date format: YYYY-MM-DD"></td>
+                            <td><label>Start Date:</label><input type="date" name="edu_start_date" id="edu_start_date" title="Date format: YYYY-MM-DD" readonly></td>
+                            <td><label>End Date:</label><input type="date" name="edu_end_date" id="edu_end_date" title="Date format: YYYY-MM-DD" readonly></td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="text" name="honors_received" id="honors_received" placeholder="Honors Received"></td>
@@ -351,8 +360,8 @@
 
 
                         <tr>
-                            <td><input type="number" name="res_certificate_no" id="res_certificate_no" placeholder="Residence Certificate No"></td>
-                            <td><br><input type="date" name="issued_date" id="issued_date" placeholder="Issued Date" title="Date format: YYYY-MM-DD"></td>
+                            <td><input type="number" name="res_certificate_no" id="res_certificate_no" placeholder="Residence Certificate No" readonly></td>
+                            <td><br><input type="date" name="issued_date" id="issued_date" placeholder="Issued Date" title="Date format: YYYY-MM-DD" readonly></td>
                         </tr>
 
                         <tr>

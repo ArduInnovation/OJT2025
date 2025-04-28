@@ -213,3 +213,194 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Dropdown menu functionality moved to hamburger-menu.js`
+
+
+
+
+
+
+
+
+
+
+
+// Select all checkboxes with class "delete-checkbox"
+const checkboxes = document.querySelectorAll('.delete-checkbox');
+
+// Select the button element
+const deleteButton = document.getElementById('DeleteMember');
+
+// Function to toggle button visibility based on checkbox state
+function toggleButtonVisibility() {
+  const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+  if (anyChecked) {
+    deleteButton.style.display = 'block';
+  } else {
+    deleteButton.style.display = 'none';
+  }
+}
+
+// Add event listener to each checkbox to call toggleButtonVisibility on change
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', toggleButtonVisibility);
+});
+
+// Initial call to toggleButtonVisibility to set initial state
+toggleButtonVisibility();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const eduStartDateInput = document.querySelector('#edu_start_date');
+const eduEndDateInput = document.querySelector('#edu_end_date');
+const startDateInputs = document.querySelectorAll('.start_date');
+const endDateInputs = document.querySelectorAll('.end_date');
+
+
+
+const currentYear = new Date().getFullYear();
+const minYear = currentYear - 65;
+const maxYear = currentYear + 65;
+
+
+
+// Add event listeners to input fields
+eduStartDateInput.addEventListener('blur', function() {
+  const inputValue = eduStartDateInput.value;
+  if (inputValue) {
+    const year = parseInt(inputValue.split('-')[0]);
+    if (year < minYear) {
+      eduStartDateInput.value = `${minYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    } else if (year > currentYear) {
+      eduStartDateInput.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    }
+    checkDateRange(eduStartDateInput, eduEndDateInput);
+  }
+});
+
+eduEndDateInput.addEventListener('blur', function() {
+  const inputValue = eduEndDateInput.value;
+  if (inputValue) {
+    const year = parseInt(inputValue.split('-')[0]);
+    if (year > maxYear) {
+      eduEndDateInput.value = `${maxYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    } else if (year < minYear) {
+      eduEndDateInput.value = `${minYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    }
+    checkDateRange(eduStartDateInput, eduEndDateInput);
+  }
+});
+
+startDateInputs.forEach(function(inputField) {
+  inputField.addEventListener('blur', function() {
+    const inputValue = this.value;
+    if (inputValue) {
+      const year = parseInt(inputValue.split('-')[0]);
+      if (year < minYear) {
+        this.value = `${minYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      } else if (year > currentYear) {
+        this.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      }
+      checkDateRange(this, endDateInputs[Array.prototype.indexOf.call(startDateInputs, this)]);
+    }
+  });
+});
+
+endDateInputs.forEach(function(inputField) {
+  inputField.addEventListener('blur', function() {
+    const inputValue = this.value;
+    if (inputValue) {
+      const year = parseInt(inputValue.split('-')[0]);
+      if (year > maxYear) {
+        this.value = `${maxYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      } else if (year < minYear) {
+        this.value = `${minYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      }
+      checkDateRange(startDateInputs[Array.prototype.indexOf.call(endDateInputs, this)], this);
+    }
+  });
+});
+
+function checkDateRange(startDateInput, endDateInput) {
+  const startDate = new Date(startDateInput.value);
+  const endDate = new Date(endDateInput.value);
+  if (startDate > endDate) {
+    startDateInput.value = endDateInput.value;
+  }
+}
+
+
+
+const dateOfBirthInput = document.querySelector('#date_of_birth');
+const childBirthDateInputs = document.querySelectorAll('.child_birth_date');
+const issuedDateInputs = document.querySelectorAll('.issued-date');
+
+dateOfBirthInput.addEventListener('blur', function() {
+  const inputValue = dateOfBirthInput.value;
+  if (inputValue) {
+    const year = parseInt(inputValue.split('-')[0]);
+    if (year < currentYear - 65) {
+      dateOfBirthInput.value = `${currentYear - 65}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    } else if (year > currentYear) {
+      dateOfBirthInput.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    }
+  }
+});
+
+
+
+issuedDateInputs.forEach(function(input) {
+  input.addEventListener('blur', function() {
+    const inputValue = input.value;
+    if (inputValue) {
+      const year = parseInt(inputValue.split('-')[0]);
+      if (year < currentYear - 65) {
+        input.value = `${currentYear - 65}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      } else if (year > currentYear) {
+        input.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      }
+    }
+  });
+});
+
+//check again
+childBirthDateInputs.forEach(function(input) {
+  input.addEventListener('blur', function() {
+    const inputValue = input.value;
+    if (inputValue) {
+      const year = parseInt(inputValue.split('-')[0]);
+      if (year < currentYear - 65) {
+        input.value = `${currentYear - 65}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      } else if (year > currentYear) {
+        input.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      }
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,9 +6,9 @@ from django.db import models
 from django.utils import timezone
 
 def generate_employment_id():
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))  # 10-character ID
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))  # 6 char id
 def generate_staff_emp_id():
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))  # 10-character ID for staff
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))  # 6 char id
 
 
 

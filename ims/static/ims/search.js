@@ -63,11 +63,17 @@ document.addEventListener('DOMContentLoaded', function () {
           ? positionCell.textContent.toLowerCase()
           : '';
 
+        const statusCell = row.cells[4];
+        const status = statusCell
+          ? statusCell.textContent.toLowerCase()
+          : '';
+
         // Show the row if the search term is found in any of the searched fields
         if (
           name.includes(searchTerm) ||
           office.includes(searchTerm) ||
-          position.includes(searchTerm)
+          position.includes(searchTerm) ||
+          status.includes(searchTerm)
         ) {
           row.style.display = '';
         } else {
