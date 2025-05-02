@@ -22,8 +22,7 @@ from django.contrib import messages
 
 from datetime import datetime
 
-now = datetime.now()
-formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+
 
 
 def get_staff_list(request):
@@ -136,6 +135,9 @@ def get_member_data(request, employment_id):
 
 
 def update_member(request, employment_id):
+    now = datetime.now()
+    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+
     if not employment_id:
         return JsonResponse({'error': 'Missing member ID'}, status=400)
     member = get_object_or_404(Members, employment_id=employment_id)
@@ -256,6 +258,9 @@ def update_member(request, employment_id):
 
 
 def register(request):
+    now = datetime.now()
+    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+
     if request.method == "POST":
         # Retrieve form data
         username = request.POST.get("username")
@@ -483,6 +488,9 @@ def register(request):
 
 @csrf_protect
 def login(request):
+    now = datetime.now()
+    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+
     if request.method == "POST":
         staff_name = request.POST.get("username")
         staff_pass = request.POST.get("password")
@@ -541,6 +549,9 @@ def dashboard(request):
 
 @csrf_protect
 def logout(request):
+    now = datetime.now()
+    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+
     if request.method == "POST":
         HistoryList.objects.create(date=now,staff_name=request.session["staff_name"], action=f"has logged out")
         request.session.flush()
@@ -550,6 +561,8 @@ def logout(request):
 
 @csrf_protect
 def delete_member(request):
+    now = datetime.now()
+    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
     if request.method == "POST":
         try:
             # Get the list of member IDs to delete

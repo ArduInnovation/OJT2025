@@ -20,6 +20,11 @@ document.querySelectorAll('#has_children').forEach((hasChildrenCheckbox) => {
       .forEach((childrenContainer) => {
         // Ensure it updates even if hidden
         childrenContainer.style.display = this.checked ? 'block' : 'none';
+        document
+          .querySelectorAll('#addChild')
+          .forEach((addChildButton) => {
+            addChildButton.style.display = this.checked ? 'block' : 'none';
+          });
       });
   });
 });
