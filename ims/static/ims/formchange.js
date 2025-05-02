@@ -266,14 +266,13 @@ toggleButtonVisibility();
 
 const eduStartDateInput = document.querySelector('#edu_start_date');
 const eduEndDateInput = document.querySelector('#edu_end_date');
-const startDateInputs = document.querySelectorAll('.start_date');
-const endDateInputs = document.querySelectorAll('.end_date');
 
 
 
 const currentYear = new Date().getFullYear();
-const minYear = currentYear - 65;
-const maxYear = currentYear + 65;
+const len = 65
+const minYear = currentYear - len;
+const maxYear = currentYear + len;
 
 
 
@@ -304,6 +303,10 @@ eduEndDateInput.addEventListener('blur', function() {
   }
 });
 
+// Select all inputs with class start_date
+const startDateInputs = document.querySelectorAll('.start_date');
+
+// Add event listeners to each input field
 startDateInputs.forEach(function(inputField) {
   inputField.addEventListener('blur', function() {
     const inputValue = this.value;
@@ -319,6 +322,9 @@ startDateInputs.forEach(function(inputField) {
   });
 });
 
+const endDateInputs = document.querySelectorAll('.end_date');
+
+// Add event listeners to each input field
 endDateInputs.forEach(function(inputField) {
   inputField.addEventListener('blur', function() {
     const inputValue = this.value;
@@ -345,15 +351,15 @@ function checkDateRange(startDateInput, endDateInput) {
 
 
 const dateOfBirthInput = document.querySelector('#date_of_birth');
-const childBirthDateInputs = document.querySelectorAll('.child_birth_date');
+
 const issuedDateInputs = document.querySelectorAll('.issued-date');
 
 dateOfBirthInput.addEventListener('blur', function() {
   const inputValue = dateOfBirthInput.value;
   if (inputValue) {
     const year = parseInt(inputValue.split('-')[0]);
-    if (year < currentYear - 65) {
-      dateOfBirthInput.value = `${currentYear - 65}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    if (year < currentYear - len) {
+      dateOfBirthInput.value = `${currentYear - len}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
     } else if (year > currentYear) {
       dateOfBirthInput.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
     }
@@ -367,8 +373,8 @@ issuedDateInputs.forEach(function(input) {
     const inputValue = input.value;
     if (inputValue) {
       const year = parseInt(inputValue.split('-')[0]);
-      if (year < currentYear - 65) {
-        input.value = `${currentYear - 65}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      if (year < currentYear - len) {
+        input.value = `${currentYear - len}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
       } else if (year > currentYear) {
         input.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
       }
@@ -377,20 +383,22 @@ issuedDateInputs.forEach(function(input) {
 });
 
 //check again
+// Select all inputs with class child_birth_date
+const childBirthDateInputs = document.querySelectorAll('.child_birth_date');
+// Add event listeners to each input field
 childBirthDateInputs.forEach(function(input) {
   input.addEventListener('blur', function() {
     const inputValue = input.value;
     if (inputValue) {
       const year = parseInt(inputValue.split('-')[0]);
-      if (year < currentYear - 65) {
-        input.value = `${currentYear - 65}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+      if (year < currentYear - len) {
+        input.value = `${currentYear - len}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
       } else if (year > currentYear) {
         input.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
       }
     }
   });
 });
-
 
 
 
