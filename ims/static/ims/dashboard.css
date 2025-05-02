@@ -819,3 +819,13 @@ button:not(.burger-menu):hover {
   max-width: 1500px;
   margin: 0 auto; /* optional: center the div horizontally */
 }
+
+.filter-dropdown {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.filter-dropdown select {
+  padding: 5px;
+  font-size: 1em;
+}

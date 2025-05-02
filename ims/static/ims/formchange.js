@@ -270,7 +270,7 @@ const eduEndDateInput = document.querySelector('#edu_end_date');
 
 
 const currentYear = new Date().getFullYear();
-const len = 65
+const len = 45
 const minYear = currentYear - len;
 const maxYear = currentYear + len;
 
