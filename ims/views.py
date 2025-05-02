@@ -25,6 +25,8 @@ from datetime import datetime
 
 
 
+now = datetime.now()
+formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
 def get_staff_list(request):
     staff = list(Staff.objects.values('id', 'staff_name'))  # Get all staff
     print("DEBUG: Staff List:", staff)  # Print staff list to console
@@ -135,8 +137,7 @@ def get_member_data(request, employment_id):
 
 
 def update_member(request, employment_id):
-    now = datetime.now()
-    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+    
 
     if not employment_id:
         return JsonResponse({'error': 'Missing member ID'}, status=400)
@@ -231,6 +232,8 @@ def update_member(request, employment_id):
             member.edu_end_date = request.POST.get("edu_end_date")
             member.honors_received = request.POST.get("honors_received")
             member.save()
+            now = datetime.now()
+            formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
             HistoryList.objects.create(date=now, staff_name=request.session["staff_name"], action=f"updated member {member.first_name}")
 
             # Update Staff Approval
@@ -258,8 +261,7 @@ def update_member(request, employment_id):
 
 
 def register(request):
-    now = datetime.now()
-    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+    
 
     if request.method == "POST":
         # Retrieve form data
@@ -324,6 +326,7 @@ def register(request):
                 mother_name=mother_name,
                 has_children=has_children
             )
+            
             HistoryList.objects.create(date=now, staff_name=request.session["staff_name"], action=f"added an employee named {member.first_name}")
             # Save member object
             member.save()
@@ -488,9 +491,7 @@ def register(request):
 
 @csrf_protect
 def login(request):
-    now = datetime.now()
-    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
-
+    
     if request.method == "POST":
         staff_name = request.POST.get("username")
         staff_pass = request.POST.get("password")
@@ -508,6 +509,8 @@ def login(request):
                 request.session["staff_name"] = staff.staff_name  # Store staff name for display
 
                 auth_login(request, staff)  # Log the user in
+                now = datetime.now()
+                formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
                 HistoryList.objects.create(date=now, staff_name=request.session["staff_name"], action="has been logged in")
                 return redirect("dashboard")  # Redirect to dashboard
 
@@ -549,10 +552,11 @@ def dashboard(request):
 
 @csrf_protect
 def logout(request):
-    now = datetime.now()
-    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+    
 
     if request.method == "POST":
+        now = datetime.now()
+        formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
         HistoryList.objects.create(date=now,staff_name=request.session["staff_name"], action=f"has logged out")
         request.session.flush()
         return redirect("login")
@@ -561,8 +565,7 @@ def logout(request):
 
 @csrf_protect
 def delete_member(request):
-    now = datetime.now()
-    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
+    
     if request.method == "POST":
         try:
             # Get the list of member IDs to delete
@@ -593,6 +596,8 @@ def delete_member(request):
                     deleted_members.append(member_name)
 
                     # Create history record
+                    now = datetime.now()
+                    formatted_timestamp = now.strftime("%b %d, %Y, %I:%M %p")
                     HistoryList.objects.create(
                         date=now,
                         staff_name=request.session["staff_name"],
