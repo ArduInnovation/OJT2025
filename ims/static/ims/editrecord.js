@@ -268,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let newChild = document.createElement('div');
                 newChild.classList.add('child-entry');
                 newChild.innerHTML = `
+                                    
                                     <div class="child-entry-grid">
                                         <div class="field">
                                             <label>Child's Name</label>
@@ -282,10 +283,23 @@ document.addEventListener('DOMContentLoaded', function () {
                                             }">
                                         </div>
                                     </div>`;
+                                    
                 childrenContainer.appendChild(newChild);
               });
             } else {
-              childrenContainer.style.display = 'none';
+              childrenContainer.innerHTML = `
+                          <div class="child-entry">
+                            <div class="child-entry-grid">
+                                <div class="field">
+                                    <label>Child's Name</label>
+                                    <input type="text" name="child_name" class="child_name" placeholder="Child's Name">
+                                </div>
+                                <div class="field">
+                                    <label>Birth Date</label>
+                                    <input type="date" name="child_birth_date" class="child_birth_date">
+                                </div>
+                            </div>
+                          </div>`;
             }
           }
 
