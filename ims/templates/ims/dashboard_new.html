@@ -133,6 +133,8 @@
                         <th>Name of Office</th>
                         <th>Position</th>
                         <th>Status</th>
+                        <th>Start</th>
+                        <th>End</th>
                         <th>Action</th>
                         <th id="delete-header"><button id="DeleteMember">Delete</button></th>
                     </tr>
@@ -163,8 +165,22 @@
                                 N/A
                             {% endfor %}
                         </td>
+                        <td class="tdClass">
+                            {% for work in member.work_details.all %}
+                                {{ work.start_date|date:"d/m/Y" }}<br>
+                            {% empty %}
+                                N/A
+                            {% endfor %}
+                        </td>
+                        <td class="tdClass">
+                            {% for work in member.work_details.all %}
+                                {{ work.end_date|date:"d/m/Y" }}<br>
+                            {% empty %}
+                                N/A
+                            {% endfor %}
+                        </td>
 
-                        <td class="tdClass"><button class="view-btn">View Record</button>
+                        <td class="tdClass"><button class="view-btn">View</button>
                         </td>
                         <td class="tdClass">
                                 <input class="delete-checkbox" type="checkbox" value="{{ member.employment_id }}" />
