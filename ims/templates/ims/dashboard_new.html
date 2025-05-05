@@ -89,7 +89,7 @@
                                 <li><button class="OfficeListButton">Provincial Treasurer's Office (PTO)</button></li>
                                 <li><button class="OfficeListButton">Provincial Veterinary Office (PVO)</button></li>
                                 <li><button class="OfficeListButton">Provincial Youth and Sports Development Office (PYSDO)</button></li>
-                               
+
                             </ul>
                             </ul>
                         </li>
@@ -101,7 +101,7 @@
             <header>
                 <h2>BECCO Members</h2>
                 <button id="openModalBtn">Add Member</button>
-                
+
                 <div class="filter-dropdown">
                     <label for="memberFilter">Filter by status:</label>
                     <select id="memberFilter">
@@ -110,7 +110,7 @@
                         <option value="inactive">Inactive</option>
                     </select>
                 </div>
-                
+
             </header>
 
             <!-- Include the multi-step form -->
@@ -119,12 +119,12 @@
             <!-- Search Bar <button id="DeleteMember">Delete Member</button>-->
             <div class="search-container">
                 <input type="text" id="memberSearch" placeholder="Search for member name, office, or position">
-                
+
             </div>
 
 
             <!-- Members List -->
-            
+
             <table>
                 <thead>
                     <tr>
@@ -289,14 +289,14 @@
                         <tr><th colspan="2">Children Details</th></tr>
                         <tr>
                             <td colspan="2">
-                                <button type="button" id="addChild">Add Child</button><br><br>
+                                <button type="button" id="addChild" style="display: none;">Add Child</button><br><br>
                                 <div id="childrenContainer" style="display: none;">
                                     <button type="button" id="addChild">Add Child</button><br><br>
                                     <div class="child-entry">
                                         <input type="text" name="child_name" class="child_name" placeholder="Child's Name">
                                         <input type="date" name="child_birth_date" class="child_birth_date" title="Date format: YYYY-MM-DD">
                                     <br><br></div>
-                       
+
                                 </div>
                             </td>
                         </tr>
@@ -412,6 +412,7 @@
     <script src="{% static 'ims/hamburger-menu.js' %}"></script>
     <script src="{% static 'ims/multistep-form.js' %}"></script>
     <script src="{% static 'ims/formchange.js' %}"></script>
+    <script src="{% static 'ims/status-filter.js' %}"></script>
 
 </body>
 </html>

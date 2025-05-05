@@ -376,9 +376,8 @@ td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-  
 }
-.tdClass{
+.tdClass {
   overflow: hidden; /* add this */
   text-overflow: ellipsis; /* add this */
   white-space: nowrap; /* add this */
@@ -814,7 +813,6 @@ button:not(.burger-menu):hover {
   border-bottom: none;
 }
 
-
 .members-list {
   max-width: 1500px;
   margin: 0 auto; /* optional: center the div horizontally */
@@ -828,4 +826,22 @@ button:not(.burger-menu):hover {
 .filter-dropdown select {
   padding: 5px;
   font-size: 1em;
+}
+
+/* Status indicator styles */
+.status-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+ 
+}
+
+.status-inactive {
+  background-color: #f44336 !important; /* Red */
+}
+
+.status-active {
+  background-color: #4caf50 !important; /* Green */
 }

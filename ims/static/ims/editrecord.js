@@ -29,6 +29,27 @@ document.querySelectorAll('#has_children').forEach((hasChildrenCheckbox) => {
   });
 });
 
+// Get the date of birth input field
+const getdateOfBirthInput = document.getElementById('date_of_birth');
+
+// Get the age input field
+const ageInput = document.getElementById('age');
+
+// Add an event listener to the date of birth input field
+getdateOfBirthInput.addEventListener('change', () => {
+  // Get the current date
+  const currentDate = new Date();
+
+  // Get the date of birth
+  const dateOfBirth = new Date(getdateOfBirthInput.value);
+
+  // Calculate the age
+  const age = currentDate.getFullYear() - dateOfBirth.getFullYear();
+
+  // Update the age input field
+  ageInput.value = age;
+});
+
 // Fetch Staff and Populate All Staff Dropdowns (Ensures hidden dropdowns update when shown)
 document.addEventListener('DOMContentLoaded', function () {
   fetch('/ims/get-staff/')
@@ -771,3 +792,11 @@ function getCSRFToken() {
   }
   return null;
 }
+
+
+
+
+
+
+
+
