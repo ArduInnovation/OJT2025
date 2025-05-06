@@ -30,25 +30,25 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       try {
-        // Get the status cell (5th column - index 4) and start date cell (6th column - index 5)
+        // Get the status cell (6th column - index 4) and ends date cell (6th column - index 5)
         const statusCell = row.cells[4];
-        const startDateCell = row.cells[5];
+        const endDateCell  = row.cells[6];
 
-        if (!statusCell || !startDateCell) return;
+        if (!statusCell || !endDateCell ) return;
 
         // Store the original HTML content
         const originalStatusContent = statusCell.innerHTML;
-        const originalStartDateContent = startDateCell.innerHTML;
+        const originalEndDateContent  = endDateCell.innerHTML;
 
         // Clear the status cell to rebuild it
         statusCell.innerHTML = '';
 
         // Split the content by <br> tags
         const statusEntries = originalStatusContent.split('<br>');
-        const startDateEntries = originalStartDateContent.split('<br>');
+        const endDateEntries = originalEndDateContent.split('<br>');
 
         console.log('Status entries:', statusEntries);
-        console.log('Start date entries:', startDateEntries);
+        console.log('Start date entries:', endDateEntries );
 
         // Process each status entry
         statusEntries.forEach((entry, index) => {
@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', function () {
           const statusText = tempDiv.textContent.trim();
 
           if (statusText) {
-            // Get the corresponding start date if available
+            // Get the corresponding start date if available  
             const startDateText =
-              index < startDateEntries.length
-                ? startDateEntries[index].trim()
+              index < endDateEntries .length
+                ? endDateEntries [index].trim()
                 : '';
 
             // Create the status indicator
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Use a fixed date for testing (May 5, 2025)
       // This ensures consistent behavior regardless of when the code runs
-      const currentDate = new Date(2025, 4, 5); // May 5, 2025 (month is 0-indexed)
+      const currentDate = new Date(); // May 5, 2025 (month is 0-indexed)
 
       console.log(
         `Comparing dates - Start: ${startDate}, Current: ${currentDate}`
@@ -183,20 +183,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       try {
         // Get the start date cell (6th column - index 5)
-        const startDateCell = row.cells[5];
-        if (!startDateCell) return;
+        const endDateCell  = row.cells[6];
+        if (!endDateCell ) return;
 
         // Store the original HTML content
-        const originalStartDateContent = startDateCell.innerHTML;
+        const originalEndDateContent  = endDateCell.innerHTML;
 
         // Split the content by <br> tags
-        const startDateEntries = originalStartDateContent.split('<br>');
+        const endDateEntries = originalEndDateContent.split('<br>');
 
         // Process each start date entry
         let hasActiveDate = false;
         let hasInactiveDate = false;
 
-        startDateEntries.forEach((entry) => {
+        endDateEntries.forEach((entry) => {
           // Skip empty entries
           if (!entry.trim()) return;
 
@@ -215,8 +215,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // If no dates found, consider inactive
         if (
-          startDateEntries.length === 0 ||
-          (startDateEntries.length === 1 && !startDateEntries[0].trim())
+          endDateEntries.length === 0 ||
+          (endDateEntries.length === 1 && !endDateEntries[0].trim())
         ) {
           hasInactiveDate = true;
         }
