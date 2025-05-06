@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       try {
-        // Get the status cell (6th column - index 4) and ends date cell (6th column - index 5)
+        // Get the status cell (6th column - index 0) and ends date cell (6th column - index 5)
         const statusCell = row.cells[4];
         const endDateCell  = row.cells[6];
 

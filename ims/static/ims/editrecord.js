@@ -36,19 +36,25 @@ const getdateOfBirthInput = document.getElementById('date_of_birth');
 const ageInput = document.getElementById('age');
 
 // Add an event listener to the date of birth input field
-getdateOfBirthInput.addEventListener('change', () => {
+getdateOfBirthInput.addEventListener('blur', () => {
   // Get the current date
   const currentDate = new Date();
 
-  // Get the date of birth
-  const dateOfBirth = new Date(getdateOfBirthInput.value);
+  // Wait for 100ms before calculating the age
+  setTimeout(() => {
+    // Get the date of birth
+    const dateOfBirth = new Date(getdateOfBirthInput.value);
 
-  // Calculate the age
-  const age = currentDate.getFullYear() - dateOfBirth.getFullYear();
+    // Calculate the age
+    const age = currentDate.getFullYear() - dateOfBirth.getFullYear();
 
-  // Update the age input field
-  ageInput.value = age;
+    // Update the age input field
+    ageInput.value = age;
+  }, 100);
 });
+
+
+
 
 // Fetch Staff and Populate All Staff Dropdowns (Ensures hidden dropdowns update when shown)
 document.addEventListener('DOMContentLoaded', function () {

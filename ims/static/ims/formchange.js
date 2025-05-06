@@ -358,10 +358,12 @@ dateOfBirthInput.addEventListener('blur', function() {
   const inputValue = dateOfBirthInput.value;
   if (inputValue) {
     const year = parseInt(inputValue.split('-')[0]);
-    if (year < currentYear - len) {
-      dateOfBirthInput.value = `${currentYear - len}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
-    } else if (year > currentYear) {
-      dateOfBirthInput.value = `${currentYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    const minAllowedYear = currentYear - 55;
+    const maxAllowedYear = currentYear - 18;
+    if (year < minAllowedYear) {
+      dateOfBirthInput.value = `${minAllowedYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
+    } else if (year > maxAllowedYear) {
+      dateOfBirthInput.value = `${maxAllowedYear}-${inputValue.split('-')[1]}-${inputValue.split('-')[2]}`;
     }
   }
 });
